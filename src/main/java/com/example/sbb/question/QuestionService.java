@@ -25,7 +25,7 @@ public class QuestionService {
     }
 
     public Question getQuestion(Integer id) {
-        Optional<Question> question = this.questionRepository.findById(id);
+        Optional<Question> question = questionRepository.findById(id);
         if (question.isPresent()) {
             return question.get();
         } else {
@@ -39,7 +39,7 @@ public class QuestionService {
         q.setContent(content);
         q.setCreateDate(LocalDateTime.now());
         q.setAuthor(user);
-        this.questionRepository.save(q);
+        questionRepository.save(q);
     }
 
     public Page<Question> getList(int page) {
@@ -50,5 +50,16 @@ public class QuestionService {
         // 한 페이지에 10개만 보여줌
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         return questionRepository.findAll(pageable);
+    }
+
+    public void modify(Question question, String subject, String content) {
+        question.setSubject(subject);
+        question.setContent(content);
+        question.setModifyDate(LocalDateTime.now());
+        questionRepository.save(question);
+    }
+
+    public void delete(Question question) {
+        questionRepository.delete(question);
     }
 }
