@@ -18,7 +18,8 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     Page<Question> findAll(Pageable pageable);
 
-    Page<Question> findAll(Pageable pageable, Specification<Question> spec);
+    // JPA의 Criteria는 권장하지 않는 방식
+    // Page<Question> findAll(Specification<Question> spec, Pageable pageable);
 
     @Query("select "
             + "distinct q "

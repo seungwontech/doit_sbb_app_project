@@ -60,9 +60,12 @@ public class QuestionService {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Question> spec = search(kw);
 
+        // JPA의 Criteria는 권장하지 않는 방식
+        // return questionRepository.findAll(spec, pageable);
+
         // 쿼리를 직접 작성하여 검색 기능을 구현
-        // return questionRepository.findAllByKeyword(pageable, kw);
-        return questionRepository.findAll(pageable, spec);
+        return questionRepository.findAllByKeyword(pageable, kw);
+
     }
 
     public void modify(Question question, String subject, String content) {
