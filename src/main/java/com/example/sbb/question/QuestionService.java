@@ -59,6 +59,9 @@ public class QuestionService {
         // 한 페이지에 10개만 보여줌
         Pageable pageable = PageRequest.of(page, 10, Sort.by(sorts));
         Specification<Question> spec = search(kw);
+
+        // 쿼리를 직접 작성하여 검색 기능을 구현
+        // return questionRepository.findAllByKeyword(pageable, kw);
         return questionRepository.findAll(pageable, spec);
     }
 
